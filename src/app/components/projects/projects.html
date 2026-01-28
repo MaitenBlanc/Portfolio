@@ -1,0 +1,128 @@
+<section data-aos="fade-up" id="projects" class="py-10 md:py-20 px-4 md:px-6 scroll-mt-5">
+
+    <h2 class="text-3xl font-bold text-center mb-12 dark:text-white">
+        {{ languageService.t().projects.title }}
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-25">
+        @for (project of projects; track project.title_es) {
+        <div class="group cursor-pointer" (click)="openProject(project)" data-aos="fade-up">
+
+            <div class="overflow-hidden rounded-sm bg-gray-100 mb-6 aspect-video">
+                @if (project.image[0].endsWith('.mp4')) {
+                <video [src]="project.image[0]" muted loop autoplay playsinline
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none">
+                </video>
+                <div class="absolute inset-0 flex items-center justify-center z-10">
+                    <div class="bg-black/30 rounded-full p-2 backdrop-blur-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-8 h-8 text-white">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
+                        </svg>
+                    </div>
+                </div>
+                } @else {
+                <img [src]="project.image[0]"
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    [alt]="languageService.currentLang() === 'es' ? project.title_es : project.title_en">
+                }
+            </div>
+
+            <div
+                class="flex justify-between items-baseline border-b border-transparent group-hover:border-gray-900 dark:group-hover:border-white transition-all pb-2">
+                <h3 class="text-xl md:text-2xl font-light tracking-tight dark:text-white">
+                    {{ languageService.currentLang() === 'es' ? project.title_es : project.title_en }}
+                </h3>
+                <span class="text-[12px] md:text-xs font-mono text-gray-400">
+                    {{ languageService.t().projects.details }} →
+                </span>
+            </div>
+        </div>
+        }
+    </div>
+
+    <app-scroll-arrow targetId="skills" [label]="languageService.t().projects.techs"></app-scroll-arrow>
+</section>
+
+
+@if (selectedProject) {
+<div class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-gray-900/90 backdrop-blur-sm animate-fade-in"
+    (click)="closeProject()">
+
+    <div class="relative w-full max-w-5xl h-auto max-h-[90vh] flex flex-col bg-white dark:bg-gray-900 shadow-2xl rounded-sm"
+        (click)="$event.stopPropagation()">
+
+        <button (click)="closeProject()"
+            class="absolute top-4 right-4 z-20 p-2 bg-white/50 dark:bg-black/50 rounded-full hover:bg-white dark:hover:bg-black transition-colors cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6 dark:text-white">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+        <div #modalContent class="overflow-y-auto p-8 custom-scrollbar">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+
+                <div class="flex md:flex-col gap-4 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none pb-6 md:pb-0">
+                    
+                    @for (media of selectedProject.image; track media) {
+                        <div class="min-w-full md:min-w-0 snap-center relative">
+                            
+                            @if (media.endsWith('.mp4')) {
+                                <video [src]="media" controls autoplay muted loop playsinline
+                                    class="w-full rounded-sm shadow-md bg-black aspect-video">
+                                </video>
+                            } @else {
+                                <img [src]="media" class="w-full rounded-sm shadow-md aspect-video" 
+                                     alt="Project Preview">
+                            }
+                            
+                        </div>
+                    }
+
+                </div>
+
+                <div class="sticky top-0">
+
+                    <h2 class="text-xl md:text-4xl font-bold mb-4 dark:text-white pr-10">
+                        {{ languageService.currentLang() === 'es' ? selectedProject.title_es : selectedProject.title_en }}
+                    </h2>
+
+                    <div [innerHTML]="languageService.currentLang() === 'es' ? selectedProject.description_es : selectedProject.description_en"
+                        class="text-justify text-gray-600 dark:text-gray-400 mb-8 leading-relaxed space-y-4 text-sm md:text-base">
+                    </div>
+
+                    <div class="mb-8">
+                        <h4 class="text-xs uppercase tracking-widest font-bold mb-4">
+                            {{ languageService.t().projects.techs }}
+                        </h4>
+                        <div class="flex flex-wrap gap-2">
+                            @for (tech of selectedProject.technologies; track tech) {
+                            <span class="px-3 py-1 bg-gray-300 dark:bg-gray-800 text-[10px] uppercase font-bold rounded-full">
+                                {{ tech }}
+                            </span>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        @if (selectedProject.link) {
+                        <a [href]="selectedProject.link" target="_blank"
+                            class="bg-black text-white dark:bg-white dark:text-black px-6 md:px-8 py-3 text-sm font-bold hover:opacity-80 transition">
+                            {{ languageService.t().projects.visit }}
+                        </a>
+                        }
+                        <a [href]="selectedProject.github" target="_blank"
+                            class="border border-black dark:border-white px-6 md:px-8 py-3 text-sm font-bold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition">
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+}

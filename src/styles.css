@@ -1,3 +1,72 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss';
+@import 'aos/dist/aos.css';
 
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@theme {
+  --color-brand-bg: #fcfcfc;
+  --color-brand-dark: #1a1a1a;
+  --color-brand-gray: #666666;
+
+  --font-sans: 'Ubuntu', system-ui, sans-serif;
+
+  --animate-fade-in: fadeIn 0.5s ease-out forwards;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+* {
+  user-select: none;
+}
+
+body {
+  background-color: var(--color-brand-bg);
+  color: var(--color-brand-dark);
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
+}
+
+:root.dark body {
+  background-color: var(--color-brand-dark);
+  color: #ffffff;
+}
+
+/* Arreglo para que el autocompletar */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+  transition: background-color 9999s ease-in-out 0s;
+  caret-color: inherit; 
+}
+
+/* Para dark mode */
+:root.dark input:-webkit-autofill,
+:root.dark input:-webkit-autofill:hover,
+:root.dark input:-webkit-autofill:focus,
+:root.dark textarea:-webkit-autofill,
+:root.dark textarea:-webkit-autofill:hover,
+:root.dark textarea:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #27272a inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: white !important;
+}
+
+
+/* Para light mode */
+:not(.dark) input:-webkit-autofill,
+:not(.dark) textarea:-webkit-autofill,
+:not(.dark) input:-webkit-autofill:hover,
+:not(.dark) input:-webkit-autofill:focus,
+:not(.dark) textarea:-webkit-autofill:hover,
+:not(.dark) textarea:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+  -webkit-text-fill-color: var(--color-brand-dark) !important;
+  caret-color: var(--color-brand-dark) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}

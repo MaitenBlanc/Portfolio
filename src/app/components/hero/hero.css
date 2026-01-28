@@ -1,0 +1,13 @@
+@keyframes soft-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+.animate-bounce {
+  animation: soft-bounce 2s infinite ease-in-out;
+}

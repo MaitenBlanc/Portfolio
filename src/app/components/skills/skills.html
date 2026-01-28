@@ -1,0 +1,51 @@
+<section data-aos="fade-up" id="skills" class="py-10 md:py-16 scroll-mt-15 px-4">
+    <h2 class="text-3xl font-bold text-center mb-12">
+        {{ languageService.t().nav.skills }}
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-16">
+
+        @for (category of skills; track category.name_es; let i = $index) {
+        <div data-aos="fade-up" [attr.data-aos-delay]="i * 100">
+
+            <div class="flex items-center gap-4 mb-3 md:mb-5">
+                <span class="text-xs font-mono text-gray-400">/ 0{{ i + 1 }}</span>
+                <h2 class="text-base uppercase tracking-[0.2em] font-bold text-gray-900 dark:text-white">
+                    {{ languageService.currentLang() === 'es' ? category.name_es : (category.name_en ||
+                    category.name_es) }}
+                </h2>
+            </div>
+
+            <ul class="flex flex-wrap gap-2 md:block md:space-y-2">
+
+                @for (item of (languageService.currentLang() === 'es' ? category.items_es : (category.items_en ||
+                category.items_es)); track item) {
+
+                <li class="group relative 
+                           bg-gray-100 dark:bg-gray-800 md:bg-transparent md:dark:bg-transparent
+                           rounded-full md:rounded-none
+                           px-3 py-1 md:px-0 md:py-0
+                           text-sm md:text-base">
+
+                    <div class="flex items-center justify-between w-full">
+                        <span class="text-gray-700 dark:text-gray-300 md:text-gray-600 md:dark:text-gray-400 
+                                     md:group-hover:text-black md:dark:group-hover:text-white transition-colors">
+                            {{ item }}
+                        </span>
+                    </div>
+
+                    <div
+                        class="hidden md:block h-[1px] w-2/3 bg-transparent group-hover:bg-gray-900 dark:group-hover:bg-white transition-colors duration-500 mt-2">
+                    </div>
+                </li>
+                }
+            </ul>
+        </div>
+        }
+
+    </div>
+
+    <div class="mt-12 flex justify-center">
+        <app-scroll-arrow targetId="contact" [label]="languageService.t().nav.contact"></app-scroll-arrow>
+    </div>
+</section>

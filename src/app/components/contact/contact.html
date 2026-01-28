@@ -1,0 +1,46 @@
+<section data-aos="fade-up" id="contact" class="py-20 pt-5 rounded-3xl px-8 scroll-mt-40">
+
+    <div class="max-w-xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
+            {{languageService.t().contact.title}}
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-8">
+            {{languageService.t().contact.desc}}
+        </p>
+
+        <form action="https://formspree.io/f/xlggevqe" method="POST"
+            class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+
+            <input type="text" placeholder="{{languageService.t().contact.name}}" name="name" required
+                class="p-3 rounded-lg border outline-none transition-all duration-300
+                       border-gray-300 bg-white text-gray-900 focus:ring-2 focus:ring-blue-500
+                       dark:bg-zinc-800 dark:border-zinc-600/50 dark:text-white dark:placeholder-gray-500 dark:focus:ring-blue-400">
+
+            <input type="email" placeholder="{{languageService.t().contact.email}}" name="_replyto" required
+                class="p-3 rounded-lg border outline-none transition-all duration-300
+                       border-gray-300 bg-white text-gray-900 focus:ring-2 focus:ring-blue-500
+                       dark:bg-zinc-800 dark:border-zinc-600/50 dark:text-white dark:placeholder-gray-500 dark:focus:ring-blue-400">
+
+            <textarea placeholder="{{languageService.t().contact.message}}" name="message" required rows="4"
+                class="p-3 rounded-lg border outline-none transition-all duration-300 md:col-span-2
+                       border-gray-300 bg-white text-gray-900 focus:ring-2 focus:ring-blue-500 placeholder-gray-500
+                       dark:bg-zinc-800 dark:border-zinc-600/50 dark:text-white dark:placeholder-gray-500 dark:focus:ring-blue-400"></textarea>
+
+            <button type="submit"
+                class="group relative overflow-hidden md:col-span-2 w-fit px-8 py-4 font-bold tracking-widest text-sm uppercase
+           text-black dark:text-white transition-colors duration-500 hover:text-white dark:hover:text-black ml-auto cursor-pointer">
+
+                <span class="absolute bottom-0 left-0 w-full h-[2px] bg-blue-600 dark:bg-blue-600 z-0
+                 transition-all duration-500 ease-out group-hover:h-full"></span>
+
+                <span class="relative z-10 flex items-center justify-center gap-2">
+                    {{languageService.t().contact.send}}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                </span>
+            </button>
+        </form>
+    </div>
+</section>

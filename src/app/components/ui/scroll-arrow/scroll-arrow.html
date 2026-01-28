@@ -1,0 +1,14 @@
+<div class="flex flex-col items-center gap-2 cursor-pointer py-12 group opacity-60 hover:opacity-100 transition-opacity"
+    (click)="scrollToTarget()" data-aos="fade-in" data-aos-delay="400">
+
+    <span
+        class="text-[10px] uppercase tracking-[0.3em] text-gray-400 group-hover:text-blue-500 dark:group-hover:text-blue-500 transition-colors">
+        {{ label }}
+    </span>
+
+    <svg xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5 text-gray-400 animate-bounce group-hover:text-blue-500 dark:group-hover:text-blue-500 transition-colors"
+        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+    </svg>
+</div>
