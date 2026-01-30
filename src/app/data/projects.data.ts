@@ -266,4 +266,71 @@ export const PROJECTS_DATA: Project[] = [
       'assets/img/app_trello/trello-muestra.mp4',
     ],
   },
+  {
+    title_es: 'Sistema de Gestión y Ventas',
+    title_en: 'Management and Sales System',
+    description_es: `
+    <p>
+      Plataforma integral diseñada para optimizar el flujo operativo de comercios minoristas. Este proyecto Full Stack resuelve la necesidad de centralizar 
+      el control de inventario y la facturación en una única herramienta segura.
+      <br>
+      El núcleo del sistema es su arquitectura de seguridad basada en roles (RBAC). A diferencia de un panel administrativo común, la aplicación muta 
+      completamente su interfaz según quién inicie sesión (Admin u Operador): ofrece un Dashboard analítico complejo para Administradores y una interfaz de 
+      Punto de Venta (POS) minimalista y ágil, reduciendo la curva de aprendizaje y los errores humanos en caja.
+    <p>
+    <strong class="text-black dark:text-white block">Características Técnicas Destacadas:</strong>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>
+          <strong class="text-gray-800 dark:text-gray-200">Backend Escalable (NestJS):</strong>
+          Arquitectura modular y organizada con Controladores, Servicios y DTOs validados (class-validator). Documentación automática de API con Swagger.
+        </li>
+        <li>
+          <strong class="text-gray-800 dark:text-gray-200">Persistencia Relacional (PostgreSQL + TypeORM):</strong>
+          Manejo robusto de datos con relaciones SQL, migraciones automáticas y transacciones seguras para el stock y las ventas.
+        </li>
+        <li>
+          <strong class="text-gray-800 dark:text-gray-200">Frontend de Última Generación:</strong>
+          Construido con React 19, React Router v7 para el manejo avanzado de rutas y Tailwind CSS v4 para un estilizado de alto rendimiento.
+        </li>
+        <li>
+          <strong class="text-gray-800 dark:text-gray-200">Seguridad & Autenticación:</strong> 
+          Implementación de Passport.js con estrategias JWT y Local para sesiones seguras y protección de endpoints privados.
+        </li>
+      <ul>`,
+    description_en: `
+      <p>
+        Comprehensive Full Stack platform designed to optimize the operational flow of retail businesses.
+        The system centralizes inventory control and billing in a single tool, using a modern, end-to-end typed technology stack (TypeScript).
+        <br>
+        Security is built on an RBAC (Role-Based Access Control) architecture implemented in the backend with NestJS and Guards.
+        Depending on the role (Admin or Operator), the frontend (React 19) renders completely different interfaces: an analytical Dashboard for management and an agile Point of Sale (POS) terminal for cashiers.
+      <p>
+      <strong class="text-black dark:text-white block mt-4 mb-2">Key Technical Features:</strong>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>
+          <strong class="text-gray-800 dark:text-gray-200">Scalable Backend (NestJS):</strong>
+          Modular architecture with Controllers, Services, and validated DTOs (class-validator). Automatic API documentation with Swagger.
+        </li>
+        <li>
+          <strong class="text-gray-800 dark:text-gray-200">Relational Persistence (PostgreSQL + TypeORM):</strong>
+          Robust data handling with SQL relationships, automatic migrations, and secure transactions for stock and sales.
+        </li>
+        <li>
+          <strong class="text-gray-800 dark:text-gray-200">Next-Gen Frontend:</strong>
+          Built with React 19, React Router v7 for advanced routing, and Tailwind CSS v4 for high-performance styling.
+        </li>
+        <li>
+          <strong class="text-gray-800 dark:text-gray-200">Security & Auth:</strong> 
+          Implementation of Passport.js with JWT and Local strategies for secure sessions and private endpoint protection.
+        </li>
+      <ul>`,
+    technologies: ['React 19', 'NestJS', 'Typescript', 'PostgreSQL', 'TypeORM', 'Tailwind CSS 4', 'Swagger'],
+    github: 'https://github.com/MaitenBlanc/calilegua',
+    image: [
+      'assets/img/app_calilegua/calilegua-login.PNG',
+      'assets/img/app_calilegua/calilegua-venta.PNG',
+      'assets/img/app_calilegua/calilegua-admin.mp4',
+      'assets/img/app_calilegua/calilegua-operario.mp4',
+    ],
+  },
 ];
