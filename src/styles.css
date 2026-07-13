@@ -70,3 +70,4 @@ textarea:-webkit-autofill:focus {
   caret-color: var(--color-brand-dark) !important;
   transition: background-color 5000s ease-in-out 0s;
 }
+

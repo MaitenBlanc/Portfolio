@@ -11,10 +11,12 @@ export const SKILLS_DATA: Skill[] = [
     items_es: [
       'Angular', 
       'React.Js', 
-      'Svelte', 
       'TypeScript', 
-      'JavaScript', 
+      'JavaScript',
+      'RxJS', 
       'Tailwind CSS', 
+      'Svelte', 
+      'Bootstrap',
       'Figma'
     ],
   },
@@ -24,21 +26,25 @@ export const SKILLS_DATA: Skill[] = [
       'Java', 
       'Spring Boot', 
       'Node.Js / Nest.Js', 
+      'PHP',
       'PostgreSQL', 
-      'MySQL', 
-      'Microservicios',
-      'Docker',
-      'Postman'
+      'MySQL',
+      'MongoDB',
+      'Oracle',
+      'Supabase',
+      'Microservicios'
     ],
     items_en: [
       'Java', 
       'Spring Boot', 
       'Node.Js / Nest.Js', 
+      'PHP',
       'PostgreSQL', 
       'MySQL', 
-      'Microservices',
-      'Docker',
-      'Postman'
+      'MongoDB',
+      'Oracle',
+      'Supabase',
+      'Microservices'
     ],
   },
   {
@@ -54,9 +60,48 @@ export const SKILLS_DATA: Skill[] = [
     ],
   },
   {
-    name_es: 'Metodologías',
-    name_en: 'Methodologies',
-    items_es: ['Metodologías Ágiles', 'Scrum', 'Kanban', 'Spotify'],
-    items_en: ['Agile methodologies', 'Scrum', 'Kanban', 'Spotify'],
+    name_es: 'Herramientas & Testing',
+    name_en: 'Tools & Testing',
+    items_es: [
+      'Git / GitHub / Bitbucket',
+      'Docker',
+      'Postman',
+      'Cypress',
+      'Moodle / Drupal'
+    ],
+  },
+  {
+    name_es: 'Ingeniería de Software y Fundamentos',
+    name_en: 'Software Engineering & Fundamentals',
+    items_es: [
+      'Análisis de Requerimientos Funcionales',
+      'Arquitectura de Software',
+      'Teoría de Programación'
+    ],
+    items_en: [
+      'Functional Requirements Analysis',
+      'Software Architecture',
+      'Programming Theory'
+    ],
+  },
+  {
+    name_es: 'Metodologías y Buenas Prácticas',
+    name_en: 'Methodologies & Best Practices',
+    items_es: [
+      'Metodologías Ágiles', 
+      'Scrum', 
+      'Kanban', 
+      'Spotify',
+      'Principios SOLID',
+      'Clean Code'
+    ],
+    items_en: [
+      'Agile methodologies', 
+      'Scrum', 
+      'Kanban', 
+      'Spotify',
+      'SOLID Principles',
+      'Clean Code'
+    ],
   },
 ];

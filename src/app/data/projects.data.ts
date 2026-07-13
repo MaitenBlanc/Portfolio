@@ -5,6 +5,7 @@ export interface Project {
   description_en: string;
   technologies: string[];
   github: string;
+  github_backend?: string;
   image: string[];
   link?: string;
   currentIdx?: number;
@@ -324,7 +325,15 @@ export const PROJECTS_DATA: Project[] = [
           Implementation of Passport.js with JWT and Local strategies for secure sessions and private endpoint protection.
         </li>
       <ul>`,
-    technologies: ['React 19', 'NestJS', 'Typescript', 'PostgreSQL', 'TypeORM', 'Tailwind CSS 4', 'Swagger'],
+    technologies: [
+      'React 19',
+      'NestJS',
+      'Typescript',
+      'PostgreSQL',
+      'TypeORM',
+      'Tailwind CSS 4',
+      'Swagger',
+    ],
     github: 'https://github.com/MaitenBlanc/calilegua',
     image: [
       'assets/img/app_calilegua/calilegua-login.PNG',
@@ -332,5 +341,69 @@ export const PROJECTS_DATA: Project[] = [
       'assets/img/app_calilegua/calilegua-admin.mp4',
       'assets/img/app_calilegua/calilegua-operario.mp4',
     ],
+  },
+  {title_es: 'Rick & Morty API - Full-Stack',
+    title_en: 'Rick & Morty API - Full-Stack',
+    description_es: `
+    <p>
+      Aplicación web Full-Stack desarrollada como parte de una evaluación técnica en Angular. El proyecto consiste en un catálogo interactivo basado en la API de Rick & Morty, que incluye un sistema completo de autenticación y gestión de usuarios.
+      <br>
+      La aplicación destaca por su sólida arquitectura frontend, dividida en módulos con lazy-loading y protección de rutas. Se implementó un sistema de comentarios interactivo donde los usuarios pueden interactuar con los episodios, manejando roles (Administrador/Usuario común) para la moderación de contenido y bloqueo de hilos.
+    <p>
+    <strong class="text-black dark:text-white block">Características Técnicas Destacadas:</strong>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>
+          <strong class="text-gray-800 dark:text-gray-200">Reactividad y SSR:</strong>
+          Uso intensivo de Angular Signals para el control del estado local, RxJS para el manejo asíncrono, e implementación de Server-Side Rendering (SSR) para optimizar el performance.
+        </li>
+        <li>
+          <strong class="text-gray-800 dark:text-gray-200">Gestión de Perfiles y Favoritos:</strong>
+          Los usuarios logueados pueden editar su información personal, cargar avatares y mantener una lista persistente de episodios favoritos.
+        </li>
+        <li>
+          <strong class="text-gray-800 dark:text-gray-200">Backend API REST (NestJS):</strong>
+          Servicio escalable desarrollado en NestJS 11, conectado a PostgreSQL mediante TypeORM. Implementa autenticación segura con Passport, JWT y encriptación de contraseñas (Bcrypt).
+        </li>
+        <li>
+          <strong class="text-gray-800 dark:text-gray-200">UI/UX Consistente:</strong> 
+          Interfaz estilizada y responsiva con componentes de Angular Material y Bootstrap, asegurando una experiencia de usuario fluida y accesible.
+        </li>
+      </ul>`,
+    description_en: `
+      <p>
+        Full-Stack web application developed as part of an Angular technical evaluation. The project consists of an interactive catalog based on the Rick & Morty API, featuring a complete user authentication and management system.
+        <br>
+        The application stands out for its solid frontend architecture, divided into modules with lazy-loading and route protection. An interactive comment system was implemented where users can interact with episodes, handling roles (Admin/Regular User) for content moderation and thread locking.
+      <p>
+      <strong class="text-black dark:text-white block mt-4 mb-2">Key Technical Features:</strong>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>
+          <strong class="text-gray-800 dark:text-gray-200">Reactivity and SSR:</strong>
+          Intensive use of Angular Signals for local state control, RxJS for asynchronous handling, and implementation of Server-Side Rendering (SSR) to optimize performance.
+        </li>
+        <li>
+          <strong class="text-gray-800 dark:text-gray-200">Profile and Favorites Management:</strong>
+          Logged-in users can edit their personal information, upload avatars, and maintain a persistent list of favorite episodes.
+        </li>
+        <li>
+          <strong class="text-gray-800 dark:text-gray-200">Backend REST API (NestJS):</strong>
+          Scalable service developed in NestJS 11, connected to PostgreSQL via TypeORM. Implements secure authentication with Passport, JWT, and password encryption (Bcrypt).
+        </li>
+        <li>
+          <strong class="text-gray-800 dark:text-gray-200">Consistent UI/UX:</strong> 
+          Styled and responsive interface using Angular Material and Bootstrap components, ensuring a smooth and accessible user experience.
+        </li>
+      </ul>`,
+    technologies: ['Angular 21', 'SSR', 'Angular Material', 'NestJS 11', 'PostgreSQL', 'TypeORM', 'Cypress'],
+    github: 'https://github.com/MaitenBlanc/rick-and-morty-api',
+    github_backend: 'https://github.com/MaitenBlanc/nest-rick-morty',
+    image: [
+      'assets/img/app_rick_morty/home.png',
+      'assets/img/app_rick_morty/register.png',
+      'assets/img/app_rick_morty/profile.png',
+      'assets/img/app_rick_morty/episodes.png',
+      'assets/img/app_rick_morty/characters.png'
+    ],
+    link: 'https://rick-and-morty-api-gamma-brown.vercel.app/',
   },
 ];
