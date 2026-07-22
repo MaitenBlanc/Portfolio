@@ -13,13 +13,15 @@ import { FormsModule } from '@angular/forms';
 })
 export class Contact {
   private http = inject(HttpClient);
-
-  constructor(public languageService: LanguageService) {}
+  public languageService = inject(LanguageService);
+  public isSubmitting = false;
 
   onSubmit(event: Event) {
-    // TODO: borrar el log
-    console.log('¡Angular interceptó el formulario!');
     event.preventDefault();
+
+    if (this.isSubmitting) return;
+
+    this.isSubmitting = true;
 
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
@@ -34,11 +36,11 @@ export class Contact {
       background: isDark ? '#27272a' : '#ffffff',
       color: isDark ? '#ffffff' : '#111827',
       customClass: {
-        popup: 'rounded-3xl shadow-2xl border border-gray-100 dark:border-zinc-700/50',
+        popup: 'rounded-sm shadow-2xl border border-gray-100 dark:border-zinc-700/50',
         title: 'text-2xl font-bold mt-2',
         htmlContainer: 'text-gray-600 dark:text-gray-400',
         confirmButton:
-          'bg-blue-600 hover:bg-blue-500 text-white font-bold tracking-widest uppercase text-sm py-3 px-8 rounded-lg transition-colors duration-300 mt-4 cursor-pointer',
+          'rounded-sm bg-blue-600 hover:bg-blue-500 text-white font-bold tracking-widest uppercase text-sm py-3 px-8 transition-colors duration-300 mt-4 cursor-pointer',
         icon: 'border-0',
       },
     };
