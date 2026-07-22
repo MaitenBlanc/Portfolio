@@ -1,17 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  ViewChild,
-  AfterViewInit,
-  OnDestroy,
-  NgZone,
-  HostListener,
-  Inject,
-  PLATFORM_ID,
-  inject,
-  afterNextRender,
-} from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, ElementRef, ViewChild, OnDestroy, HostListener, inject, afterNextRender } from '@angular/core';
 import { ScrollArrow } from '../ui/scroll-arrow/scroll-arrow';
 import { Theme } from '../../services/theme';
 import { LanguageService } from '../../services/language.service';
@@ -23,7 +10,7 @@ import { LanguageService } from '../../services/language.service';
   templateUrl: './hero.html',
   styleUrl: './hero.css',
 })
-export class Hero implements AfterViewInit, OnDestroy {
+export class Hero implements OnDestroy {
   @ViewChild('plasmaCanvas') canvasRef!: ElementRef<HTMLCanvasElement>;
 
   public themeService = inject(Theme);
@@ -107,7 +94,7 @@ export class Hero implements AfterViewInit, OnDestroy {
   private animate = () => {
     this.draw();
     this.animationFrameId = requestAnimationFrame(this.animate);
-  }
+  };
 
   private draw() {
     if (!this.ctx || !this.canvasRef) return;
