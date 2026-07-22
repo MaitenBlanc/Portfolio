@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <style>
+    .monogram { 
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+      font-weight: 800; 
+      font-size: 62px; 
+      letter-spacing: -2px; 
+    }
+    .letter-m { fill: #111827; } 
+    .letter-b { fill: #2563EB; } 
+    .dot      { fill: #111827; }
+    
+    @media (prefers-color-scheme: dark) {
+      .letter-m { fill: #F9FAFB; } 
+      .dot      { fill: #F9FAFB; }
+    }
+  </style>
+  
+  <text x="50%" y="76" text-anchor="middle" class="monogram">
+    <tspan class="letter-m">M</tspan><tspan class="letter-b">B</tspan><tspan class="dot">.</tspan>
+  </text>
+</svg>
