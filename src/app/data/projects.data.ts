@@ -1,6 +1,8 @@
 export interface Project {
   title_es: string;
   title_en: string;
+  short_title_es: string; 
+  short_title_en: string;
   description_es: string;
   description_en: string;
   technologies: string[];
@@ -9,10 +11,15 @@ export interface Project {
   image: string[];
   link?: string;
   currentIdx?: number;
+  title?: string;
+  shortTitle?: string;
+  description?: string;
 }
 
 export const PROJECTS_DATA: Project[] = [
   {
+    short_title_es: 'Gloss Glam',
+    short_title_en: 'Gloss Glam',
     title_es: 'Gloss Glam - E-commerce UI & Maquetado',
     title_en: 'Gloss Glam - E-commerce UI & Layout',
     description_es: `
@@ -85,6 +92,8 @@ export const PROJECTS_DATA: Project[] = [
     link: 'https://gloss-glam.netlify.app/html/',
   },
   {
+    short_title_es: 'Menu Online',
+    short_title_en: 'Menu Online',
     title_es: 'Menu Online - Responsive',
     title_en: 'Menu Online - Responsive',
     description_es: `
@@ -153,6 +162,8 @@ export const PROJECTS_DATA: Project[] = [
     link: 'https://app-pedidos-comida.netlify.app/',
   },
   {
+    short_title_es: 'Trello Clone',
+    short_title_en: 'Trello Clone',
     title_es: 'Trello Clone - Gestión de Tareas Full Stack',
     title_en: 'Trello Clone - Full Stack Task Management',
     description_es: `
@@ -268,6 +279,8 @@ export const PROJECTS_DATA: Project[] = [
     ],
   },
   {
+    short_title_es: 'Gestión de Ventas',
+    short_title_en: 'Sales Management',
     title_es: 'Sistema de Gestión y Ventas',
     title_en: 'Management and Sales System',
     description_es: `
@@ -342,7 +355,10 @@ export const PROJECTS_DATA: Project[] = [
       'assets/img/app_calilegua/calilegua-operario.mp4',
     ],
   },
-  {title_es: 'Rick & Morty API - Full-Stack',
+  {
+    short_title_es: 'Rick & Morty API',
+    short_title_en: 'Rick & Morty API',
+    title_es: 'Rick & Morty API - Full-Stack',
     title_en: 'Rick & Morty API - Full-Stack',
     description_es: `
     <p>

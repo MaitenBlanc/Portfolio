@@ -60,8 +60,8 @@ export const SKILLS_DATA: Skill[] = [
     ],
   },
   {
-    name_es: 'Herramientas & Testing',
-    name_en: 'Tools & Testing',
+    name_es: 'Herramientas',
+    name_en: 'DevTools',
     items_es: [
       'Git / GitHub / Bitbucket',
       'Docker',
@@ -71,8 +71,8 @@ export const SKILLS_DATA: Skill[] = [
     ],
   },
   {
-    name_es: 'Ingeniería de Software y Fundamentos',
-    name_en: 'Software Engineering & Fundamentals',
+    name_es: 'Fundamentos',
+    name_en: 'Fundamentals',
     items_es: [
       'Análisis de Requerimientos Funcionales',
       'Arquitectura de Software',
@@ -85,8 +85,8 @@ export const SKILLS_DATA: Skill[] = [
     ],
   },
   {
-    name_es: 'Metodologías y Buenas Prácticas',
-    name_en: 'Methodologies & Best Practices',
+    name_es: 'Buenas Prácticas',
+    name_en: 'Best Practices',
     items_es: [
       'Metodologías Ágiles', 
       'Scrum', 

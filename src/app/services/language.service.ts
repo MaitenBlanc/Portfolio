@@ -1,5 +1,10 @@
-import { computed, Injectable, signal } from '@angular/core';
-import { single } from 'rxjs';
+import { computed, effect, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+
+import { ABOUT_DATA } from '../data/about.data';
+import { PROJECTS_DATA } from '../data/projects.data';
+import { SKILLS_DATA } from '../data/skills.data';
+import { UI_TRANSLATIONS } from '../data/translations.data';
 
 export type Language = 'es' | 'en';
 
@@ -7,69 +12,80 @@ export type Language = 'es' | 'en';
   providedIn: 'root',
 })
 export class LanguageService {
-  currentLang = signal<Language>('es');
+  // Para saber si se ejecuta en el navegador o en el servidor (SSR)
+  private platformId = inject(PLATFORM_ID);
+  currentLang = signal<Language>(this.getInitialLanguage());
+
+  constructor() {
+    // Reacciona automáticamente cada vez que el idioma cambia
+    effect(() => {
+      if (isPlatformBrowser(this.platformId)) {
+        localStorage.setItem('preferredLang', this.currentLang());
+      }
+    });
+  }
+
+  private getInitialLanguage(): Language {
+    // Intentar leer el localStorage solo en el navegador
+    if (isPlatformBrowser(this.platformId)) {
+      const savedLang = localStorage.getItem('preferredLang') as Language;
+      if (savedLang === 'es' || savedLang === 'en') {
+        return savedLang;
+      }
+    }
+    return 'es';
+  }
 
   toggleLanguage() {
     this.currentLang.set(this.currentLang() === 'es' ? 'en' : 'es');
   }
 
   t = computed(() => {
+    const lang = this.currentLang();
     const isEs = this.currentLang() === 'es';
+    const uiTexts = UI_TRANSLATIONS[lang];
+
+    // Mapeo About
+    const profileData = {
+      name: ABOUT_DATA.name,
+      role: isEs ? ABOUT_DATA.role_es : ABOUT_DATA.role_en,
+      image: ABOUT_DATA.image,
+      description: isEs ? ABOUT_DATA.description_es : ABOUT_DATA.description_en,
+      location: isEs ? ABOUT_DATA.location_es : ABOUT_DATA.location_en,
+      education: isEs ? ABOUT_DATA.education_es : ABOUT_DATA.education_en,
+    };
+
+    // Mapeo Proyectos
+    const projectsList = PROJECTS_DATA.map((project) => ({
+      ...project,
+      shortTitle: isEs ? project.short_title_es : project.short_title_en,
+      title: isEs ? project.title_es : project.title_en,
+      description: isEs ? project.description_es : project.description_en,
+    }));
+
+    // Mapeo Skills
+    const skillsList = SKILLS_DATA.map((skill) => ({
+      name: isEs ? skill.name_es : (skill.name_en || skill.name_es),
+      items: isEs ? skill.items_es : (skill.items_en || skill.items_es),
+    }));
 
     return {
+      ...uiTexts,
       nav: {
-        projects: isEs ? 'Proyectos' : 'Projects',
-        skills: isEs ? 'Skills' : 'Skills',
-        about: isEs ? 'Sobre Mí' : 'About Me',
-        contact: isEs ? 'Contacto' : 'Contact',
+        ...uiTexts.nav
       },
       hero: {
-        greeting: isEs ? 'Hola! Soy' : 'Hi! I am',
-        role: isEs ? 'Desarrolladora Full Stack' : 'Full Stack Developer',
-        student: isEs
-          ? 'Estudiante de Licenciatura en Sistemas de Información y Análisis de Sistemas.'
-          : 'Information Systems and Systems Analysis Student.',
-        btn: isEs ? 'Sobre Mí' : 'About Me',
+        ...uiTexts.hero,
+        role: profileData.role,
       },
       about: {
-        title: isEs ? 'Sobre Mí' : 'About Me',
-        description: isEs
-          ? `Soy estudiante avanzada de la Licenciatura en Sistemas de Información. 
-            Me apasiona transformar ideas complejas en interfaces simples e intuitivas.
-            <br><br>
-            Mi enfoque combina la lógica del backend con la creatividad del frontend, 
-            buscando siempre código limpio (Clean Code) y experiencias de usuario memorables.
-            Actualmente me encuentro perfeccionando mis habilidades en arquitecturas escalables.`
-            : `I am an advanced student in the Bachelor of Science in Information Systems program.
-            I am passionate about transforming complex ideas into simple and intuitive interfaces.
-            <br><br>
-            My approach combines backend logic with frontend creativity, always striving for clean 
-            code and memorable user experiences.
-            I am currently refining my skills in scalable architectures.`,
-        education: isEs ? 'Educación' : 'Education',
-        career1: isEs ? `Licenciatura en Sistemas de Información.` : 'Bachelor of Information Systems',
-        career2: isEs ? `Analista de Sistemas.` : 'Systems Analyst',
-        university: isEs ? 'Universidad Autónoma de Entre Ríos' : 'University of Entre Ríos',
-        location: isEs ? 'Ubicación' : 'Location',
-        cvSite: isEs ? 'https://maitenblanc.github.io/CV-es/' : 'https://maitenblanc.github.io/CV-en/',
-        cv: isEs ? 'Ver CV' : 'View CV',
-        btn: isEs ? 'Mis Proyectos' : 'My Projects',
+        ...uiTexts.aboutText,
+        profileData,
       },
-      projects: {
-        title: isEs ? 'Mis Proyectos' : 'My Projects',
-        details: isEs ? 'VER DETALLES' : 'VIEW DETAILS',
-        viewTechs: isEs ? 'Ver Tecnologías' : 'View Technologies',
-        techs: isEs ? 'Tecnologías' : 'Technologies',
-        visit: isEs ? 'Visitar Sitio' : 'Visit Site',
-      },
-      contact: {
-        title: isEs ? 'Contacto' : 'Contact',
-        desc: isEs ? 'No dudes en escribirme para nuevas oportunidades y/o colaboraciones.' : 'Feel free to write to me for new opportunities and/or collaborations.',
-        name: isEs ? 'Nombre' : 'Name',
-        email: isEs ? 'Correo Electrónico' : 'Email',
-        message: isEs ? 'Mensaje' : 'Message',
-        send: isEs ? 'Enviar Mensaje' : 'Send Message',
-      },
+
+      // Listados listos para iterar con @for en los componentes HTML
+      projectsList,
+      skillsList,
     };
   });
 }

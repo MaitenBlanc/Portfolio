@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, HostListener, signal } from '@angular/core';
 import { Theme } from '../../services/theme';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
@@ -12,11 +12,20 @@ import { LanguageService } from '../../services/language.service';
 })
 export class Navbar {
   mobileMenuOpen = signal(false);
+  isScrolled = signal(false);
 
   constructor(
     public themeService: Theme,
     public languageService: LanguageService
   ) {}
+
+  // Escucha el evento scroll de la ventana
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const scrollThreshold = 140; 
+    
+    this.isScrolled.set(window.scrollY > scrollThreshold);
+  }
 
   toggleMobileMenu() {
     this.mobileMenuOpen.set(!this.mobileMenuOpen());
