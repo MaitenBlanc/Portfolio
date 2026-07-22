@@ -1,29 +1,28 @@
-import { isPlatformBrowser } from '@angular/common';
-import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { effect, inject, Injectable, signal } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Theme {
-  private platformId = inject(PLATFORM_ID);
+  private document = inject(DOCUMENT);
 
-  darkMode = signal<boolean>(true);
+  public darkMode = signal<boolean>(true);
 
   constructor() {
-    if (isPlatformBrowser(this.platformId)) {
-      document.documentElement.classList.add('dark');
-    }
+    effect(() => {
+      const isDark = this.darkMode();
+      const htmlElement = this.document.documentElement;
+
+      if (isDark) {
+        htmlElement.classList.add('dark');
+      } else {
+        htmlElement.classList.remove('dark');
+      }
+    });
   }
 
   toggleDarkMode() {
     this.darkMode.update((mode) => !mode);
-
-    if (isPlatformBrowser(this.platformId)) {
-      if (this.darkMode()) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    }
   }
 }

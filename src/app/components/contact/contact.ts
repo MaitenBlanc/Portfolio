@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { LanguageService } from '../../services/language.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-contact',
@@ -14,14 +15,14 @@ import { FormsModule } from '@angular/forms';
 export class Contact {
   private http = inject(HttpClient);
   public languageService = inject(LanguageService);
-  public isSubmitting = false;
+  public isSubmitting = signal(false);
 
   onSubmit(event: Event) {
     event.preventDefault();
 
-    if (this.isSubmitting) return;
+    if (this.isSubmitting()) return;
 
-    this.isSubmitting = true;
+    this.isSubmitting.set(true);
 
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
@@ -49,6 +50,11 @@ export class Contact {
       .post(formspreeUrl, formData, {
         headers: { Accept: 'application/json' },
       })
+      .pipe(
+        // Usar finalize de RxJS: Se ejecuta SIEMPRE al terminar, ya sea por éxito o error.
+        // Esto mantiene el código DRY y asegura que el formulario se desbloquee.
+        finalize(() => this.isSubmitting.set(false))
+      )
       .subscribe({
         next: () => {
           Swal.fire({

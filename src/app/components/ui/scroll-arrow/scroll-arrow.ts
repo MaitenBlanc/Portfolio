@@ -1,23 +1,25 @@
-import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-scroll-arrow',
-  standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './scroll-arrow.html',
   styleUrl: './scroll-arrow.css',
 })
 export class ScrollArrow {
-  @Input({ required: true }) targetId: string = '';
-  @Input() label: string = 'Continuar';
+  private document = inject(DOCUMENT);
+
+  public targetId = input.required<string>();
+  public label = input<string>('Continuar');
 
   scrollToTarget() {
-    const element = document.getElementById(this.targetId);
+    const element = this.document.getElementById(this.targetId());
+    
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     } else {
-      console.warn(`Section with id '${this.targetId}' not found.`);
+      console.warn(`Section with id '${this.targetId()}' not found.`);
     }
   }
 }

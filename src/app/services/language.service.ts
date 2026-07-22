@@ -14,7 +14,7 @@ export type Language = 'es' | 'en';
 export class LanguageService {
   // Para saber si se ejecuta en el navegador o en el servidor (SSR)
   private platformId = inject(PLATFORM_ID);
-  currentLang = signal<Language>(this.getInitialLanguage());
+  public currentLang = signal<Language>(this.getInitialLanguage());
 
   constructor() {
     // Reacciona automáticamente cada vez que el idioma cambia
@@ -37,13 +37,12 @@ export class LanguageService {
   }
 
   toggleLanguage() {
-    this.currentLang.set(this.currentLang() === 'es' ? 'en' : 'es');
+    this.currentLang.update(lang => lang === 'es' ? 'en' : 'es');
   }
 
-  t = computed(() => {
-    const lang = this.currentLang();
+  public t = computed(() => {
     const isEs = this.currentLang() === 'es';
-    const uiTexts = UI_TRANSLATIONS[lang];
+    const uiTexts = UI_TRANSLATIONS[this.currentLang()];
 
     // Mapeo About
     const profileData = {
@@ -82,8 +81,6 @@ export class LanguageService {
         ...uiTexts.aboutText,
         profileData,
       },
-
-      // Listados listos para iterar con @for en los componentes HTML
       projectsList,
       skillsList,
     };

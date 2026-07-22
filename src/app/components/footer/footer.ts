@@ -1,17 +1,22 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
-  standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './footer.html',
   styleUrl: './footer.css',
 })
 export class Footer {
-  currentYear = new Date().getFullYear();
+  // Por seguridad
+  private document = inject(DOCUMENT);
+  readonly currentYear = new Date().getFullYear();
 
   scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Prevenir errores en SSR
+    const window = this.document.defaultView;
+    if (window) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
 }

@@ -1,43 +1,48 @@
-import { Component, HostListener, signal } from '@angular/core';
+import { Component, DOCUMENT, HostListener, inject, signal } from '@angular/core';
 import { Theme } from '../../services/theme';
-import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
 export class Navbar {
-  mobileMenuOpen = signal(false);
-  isScrolled = signal(false);
+  public themeService = inject(Theme);
+  public languageService = inject(LanguageService);
+  private document = inject(DOCUMENT);
 
-  constructor(
-    public themeService: Theme,
-    public languageService: LanguageService
-  ) {}
+  public mobileMenuOpen = signal(false);
+  public isScrolled = signal(false);
+
+  // Extraer el número mágico
+  private readonly SCROLL_THRESHOLD = 140;
 
   // Escucha el evento scroll de la ventana
-  @HostListener('window:scroll', [])
+  @HostListener('window:scroll')
   onWindowScroll() {
-    const scrollThreshold = 140; 
-    
-    this.isScrolled.set(window.scrollY > scrollThreshold);
-  }
-
-  toggleMobileMenu() {
-    this.mobileMenuOpen.set(!this.mobileMenuOpen());
-    if (this.mobileMenuOpen()) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
+    const window = this.document.defaultView;
+    if (window) {
+      this.isScrolled.set(window.scrollY > this.SCROLL_THRESHOLD);
     }
   }
 
+  toggleMobileMenu() {
+    this.mobileMenuOpen.update(open => !open);
+    this.updateBodyOverflow(this.mobileMenuOpen());
+  }
+
   closeMobileMenu() {
+    if (!this.mobileMenuOpen()) return;
     this.mobileMenuOpen.set(false);
-    document.body.style.overflow = 'auto';
+    this.updateBodyOverflow(false);
+  }
+
+  private updateBodyOverflow(disableScroll: boolean) {
+    if (this.document) {
+      this.document.body.style.overflow = disableScroll ? 'hidden' : 'auto';
+    }
   }
 }

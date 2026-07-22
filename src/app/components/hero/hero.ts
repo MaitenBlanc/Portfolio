@@ -3,6 +3,14 @@ import { ScrollArrow } from '../ui/scroll-arrow/scroll-arrow';
 import { Theme } from '../../services/theme';
 import { LanguageService } from '../../services/language.service';
 
+interface Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  size: number;
+}
+
 @Component({
   selector: 'app-hero',
   standalone: true,
@@ -18,9 +26,8 @@ export class Hero implements OnDestroy {
 
   private ctx!: CanvasRenderingContext2D | null;
   private animationFrameId: number = 0;
-  private particles: any[] = [];
+  private particles: Particle[] = [];
   private mouse = { x: -500, y: -500 };
-  private particleColor = '30, 41, 59';
 
   private config = {
     particleCount: 80,
@@ -78,9 +85,6 @@ export class Hero implements OnDestroy {
     this.updateConfigForScreenSize();
     const particleCount = window.innerWidth < 768 ? 40 : 80;
 
-    const isDark = document.documentElement.classList.contains('dark');
-    this.particleColor = isDark ? '255, 255, 255' : '30, 41, 59';
-
     // Generación de partículas
     this.particles = Array.from({ length: particleCount }, () => ({
       x: Math.random() * canvas.width,
@@ -105,6 +109,9 @@ export class Hero implements OnDestroy {
 
     this.ctx.clearRect(0, 0, width, height);
 
+    const isDark = document.documentElement.classList.contains('dark');
+    const particleColor = isDark ? '255, 255, 255' : '30, 41, 59';
+
     // Iterar sobre las partículas
     this.particles.forEach((p, i) => {
       p.x += p.vx;
@@ -117,7 +124,7 @@ export class Hero implements OnDestroy {
       // Dibujar partícula
       this.ctx!.beginPath();
       this.ctx!.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      this.ctx!.fillStyle = `rgba(${this.particleColor}, 0.5)`;
+      this.ctx!.fillStyle = `rgba(${particleColor}, 0.5)`;
       this.ctx!.fill();
 
       // Conexiones entre partículas
@@ -129,7 +136,7 @@ export class Hero implements OnDestroy {
 
         if (distance < this.config.connectionDistance) {
           this.ctx!.beginPath();
-          this.ctx!.strokeStyle = `rgba(${this.particleColor}, ${1 - distance / this.config.connectionDistance})`;
+          this.ctx!.strokeStyle = `rgba(${particleColor}, ${1 - distance / this.config.connectionDistance})`;
           this.ctx!.lineWidth = 0.5;
           this.ctx!.moveTo(p.x, p.y);
           this.ctx!.lineTo(p2.x, p2.y);
